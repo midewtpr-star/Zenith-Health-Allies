@@ -26,24 +26,24 @@ export function ContactSection() {
   };
 
   return (
-    <section className="py-24 bg-secondary/30">
+    <section className="py-16 md:py-24 bg-secondary/30">
       <div className="container mx-auto px-4">
-        <div className="grid lg:grid-cols-2 gap-16">
+        <div className="grid lg:grid-cols-2 gap-10 md:gap-16">
           {/* Contact Info */}
           <div>
-            <span className="inline-block px-4 py-2 bg-primary/10 text-primary rounded-full text-sm font-medium mb-4">
+            <span className="inline-block px-3 py-1.5 md:px-4 md:py-2 bg-primary/10 text-primary rounded-full text-xs md:text-sm font-medium mb-3 md:mb-4">
               Reach Out to Us
             </span>
-            <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl text-foreground mb-6">
+            <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-foreground mb-4 md:mb-6">
               Send Us a Message
             </h2>
-            <p className="text-muted-foreground text-lg leading-relaxed mb-10">
+            <p className="text-muted-foreground text-base md:text-lg leading-relaxed mb-8 md:mb-10">
               Got questions? We have answers. Send us a message for dedicated and 
               caring health services support tailored just for you.
             </p>
 
             {/* Contact Cards */}
-            <div className="space-y-4">
+            <div className="space-y-3 md:space-y-4">
               {[
                 { icon: Phone, label: 'Phone', value: '240-278-1871', href: 'tel:240-278-1871' },
                 { icon: Mail, label: 'Email', value: 'hello@moheritagecares.com', href: 'mailto:hello@moheritagecares.com' },
@@ -51,19 +51,19 @@ export function ContactSection() {
               ].map((item, index) => (
                 <div
                   key={index}
-                  className="flex items-center gap-4 p-4 bg-card rounded-xl shadow-soft hover:shadow-medium transition-shadow"
+                  className="flex items-center gap-3 md:gap-4 p-3 md:p-4 bg-card rounded-xl shadow-soft hover:shadow-medium transition-shadow"
                 >
-                  <div className="w-12 h-12 gradient-hero rounded-xl flex items-center justify-center flex-shrink-0">
-                    <item.icon className="w-5 h-5 text-primary-foreground" />
+                  <div className="w-10 h-10 md:w-12 md:h-12 gradient-hero rounded-xl flex items-center justify-center flex-shrink-0">
+                    <item.icon className="w-4 h-4 md:w-5 md:h-5 text-primary-foreground" />
                   </div>
-                  <div>
-                    <p className="text-sm text-muted-foreground">{item.label}</p>
+                  <div className="min-w-0">
+                    <p className="text-xs md:text-sm text-muted-foreground">{item.label}</p>
                     {item.href ? (
-                      <a href={item.href} className="text-foreground font-medium hover:text-primary transition-colors">
+                      <a href={item.href} className="text-foreground font-medium hover:text-primary transition-colors text-sm md:text-base truncate block">
                         {item.value}
                       </a>
                     ) : (
-                      <p className="text-foreground font-medium">{item.value}</p>
+                      <p className="text-foreground font-medium text-sm md:text-base">{item.value}</p>
                     )}
                   </div>
                 </div>
@@ -72,8 +72,8 @@ export function ContactSection() {
           </div>
 
           {/* Contact Form */}
-          <div className="bg-card rounded-2xl shadow-medium p-8">
-            <form onSubmit={handleSubmit} className="space-y-6">
+          <div className="bg-card rounded-2xl shadow-medium p-5 md:p-8">
+            <form onSubmit={handleSubmit} className="space-y-4 md:space-y-6">
               <div>
                 <label htmlFor="name" className="block text-sm font-medium text-foreground mb-2">
                   Full Name *
@@ -83,7 +83,7 @@ export function ContactSection() {
                   name="name"
                   required
                   placeholder="John Doe"
-                  className="h-12"
+                  className="h-11 md:h-12"
                 />
               </div>
               <div>
@@ -96,7 +96,7 @@ export function ContactSection() {
                   type="email"
                   required
                   placeholder="john@example.com"
-                  className="h-12"
+                  className="h-11 md:h-12"
                 />
               </div>
               <div>
@@ -108,7 +108,7 @@ export function ContactSection() {
                   name="phone"
                   type="tel"
                   placeholder="(240) 000-0000"
-                  className="h-12"
+                  className="h-11 md:h-12"
                 />
               </div>
               <div>
@@ -123,7 +123,7 @@ export function ContactSection() {
                   rows={4}
                 />
               </div>
-              <p className="text-sm text-muted-foreground">
+              <p className="text-xs md:text-sm text-muted-foreground">
                 By submitting this form you agree to our Privacy Policy
               </p>
               <Button
