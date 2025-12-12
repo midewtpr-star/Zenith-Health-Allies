@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=DM+Serif+Display:ital@0;1&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,400&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -6,46 +6,53 @@
 
 @layer base {
   :root {
-    --background: 180 20% 99%;
-    --foreground: 200 25% 15%;
+    --background: 200 20% 98%;
+    --foreground: 210 50% 15%;
 
     --card: 0 0% 100%;
-    --card-foreground: 200 25% 15%;
+    --card-foreground: 210 50% 15%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 200 25% 15%;
+    --popover-foreground: 210 50% 15%;
 
-    --primary: 174 62% 35%;
+    --primary: 210 55% 22%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 180 15% 95%;
-    --secondary-foreground: 200 25% 15%;
+    --secondary: 168 35% 45%;
+    --secondary-foreground: 0 0% 100%;
 
-    --muted: 180 10% 94%;
-    --muted-foreground: 200 10% 45%;
+    --muted: 200 15% 94%;
+    --muted-foreground: 210 15% 45%;
 
-    --accent: 15 85% 60%;
+    --accent: 12 75% 55%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 180 15% 90%;
-    --input: 180 15% 90%;
-    --ring: 174 62% 35%;
+    --border: 200 15% 88%;
+    --input: 200 15% 88%;
+    --ring: 210 55% 22%;
 
     --radius: 0.75rem;
 
+    /* Brand Colors from Logo */
+    --navy: 210 55% 22%;
+    --teal: 168 35% 45%;
+    --teal-light: 165 40% 70%;
+    --coral: 12 75% 55%;
+
     /* Custom tokens */
-    --gradient-hero: linear-gradient(135deg, hsl(174 62% 35%) 0%, hsl(190 55% 45%) 100%);
-    --gradient-warm: linear-gradient(135deg, hsl(15 85% 60%) 0%, hsl(25 90% 65%) 100%);
-    --gradient-soft: linear-gradient(180deg, hsl(180 20% 99%) 0%, hsl(180 15% 96%) 100%);
-    --gradient-card: linear-gradient(145deg, hsl(0 0% 100%) 0%, hsl(180 15% 98%) 100%);
+    --gradient-hero: linear-gradient(135deg, hsl(210 55% 18%) 0%, hsl(210 50% 28%) 100%);
+    --gradient-secondary: linear-gradient(135deg, hsl(168 35% 40%) 0%, hsl(165 40% 55%) 100%);
+    --gradient-warm: linear-gradient(135deg, hsl(12 75% 55%) 0%, hsl(18 80% 60%) 100%);
+    --gradient-soft: linear-gradient(180deg, hsl(200 20% 98%) 0%, hsl(200 15% 95%) 100%);
+    --gradient-card: linear-gradient(145deg, hsl(0 0% 100%) 0%, hsl(200 15% 98%) 100%);
     
-    --shadow-soft: 0 4px 20px -4px hsl(200 25% 15% / 0.08);
-    --shadow-medium: 0 8px 30px -6px hsl(200 25% 15% / 0.12);
-    --shadow-glow: 0 0 40px hsl(174 62% 35% / 0.15);
-    --shadow-accent: 0 8px 25px -5px hsl(15 85% 60% / 0.25);
+    --shadow-soft: 0 4px 20px -4px hsl(210 50% 15% / 0.08);
+    --shadow-medium: 0 8px 30px -6px hsl(210 50% 15% / 0.15);
+    --shadow-glow: 0 0 40px hsl(168 35% 45% / 0.2);
+    --shadow-accent: 0 8px 25px -5px hsl(12 75% 55% / 0.3);
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
@@ -58,38 +65,39 @@
   }
 
   .dark {
-    --background: 200 25% 8%;
-    --foreground: 180 15% 95%;
+    --background: 210 40% 8%;
+    --foreground: 200 15% 95%;
 
-    --card: 200 20% 12%;
-    --card-foreground: 180 15% 95%;
+    --card: 210 35% 12%;
+    --card-foreground: 200 15% 95%;
 
-    --popover: 200 20% 12%;
-    --popover-foreground: 180 15% 95%;
+    --popover: 210 35% 12%;
+    --popover-foreground: 200 15% 95%;
 
-    --primary: 174 55% 45%;
-    --primary-foreground: 200 25% 8%;
+    --primary: 210 45% 35%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 200 15% 18%;
-    --secondary-foreground: 180 15% 95%;
+    --secondary: 168 30% 35%;
+    --secondary-foreground: 0 0% 100%;
 
-    --muted: 200 15% 18%;
-    --muted-foreground: 180 10% 60%;
+    --muted: 210 20% 18%;
+    --muted-foreground: 200 10% 60%;
 
-    --accent: 15 80% 55%;
+    --accent: 12 70% 50%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 200 15% 20%;
-    --input: 200 15% 20%;
-    --ring: 174 55% 45%;
+    --border: 210 20% 20%;
+    --input: 210 20% 20%;
+    --ring: 210 45% 35%;
 
-    --gradient-hero: linear-gradient(135deg, hsl(174 55% 30%) 0%, hsl(190 50% 35%) 100%);
-    --gradient-warm: linear-gradient(135deg, hsl(15 80% 50%) 0%, hsl(25 85% 55%) 100%);
-    --gradient-soft: linear-gradient(180deg, hsl(200 25% 8%) 0%, hsl(200 20% 10%) 100%);
-    --gradient-card: linear-gradient(145deg, hsl(200 20% 12%) 0%, hsl(200 18% 14%) 100%);
+    --gradient-hero: linear-gradient(135deg, hsl(210 40% 12%) 0%, hsl(210 35% 18%) 100%);
+    --gradient-secondary: linear-gradient(135deg, hsl(168 30% 30%) 0%, hsl(165 35% 40%) 100%);
+    --gradient-warm: linear-gradient(135deg, hsl(12 70% 45%) 0%, hsl(18 75% 50%) 100%);
+    --gradient-soft: linear-gradient(180deg, hsl(210 40% 8%) 0%, hsl(210 35% 10%) 100%);
+    --gradient-card: linear-gradient(145deg, hsl(210 35% 12%) 0%, hsl(210 30% 14%) 100%);
 
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
@@ -109,25 +117,29 @@
 
   body {
     @apply bg-background text-foreground font-sans antialiased;
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Lato', sans-serif;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'DM Serif Display', serif;
+    font-family: 'Playfair Display', serif;
   }
 }
 
 @layer utilities {
   .font-serif {
-    font-family: 'DM Serif Display', serif;
+    font-family: 'Playfair Display', serif;
   }
 
   .font-sans {
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Lato', sans-serif;
   }
 
   .gradient-hero {
     background: var(--gradient-hero);
+  }
+
+  .gradient-secondary {
+    background: var(--gradient-secondary);
   }
 
   .gradient-warm {
@@ -160,7 +172,7 @@
 
   .text-gradient {
     @apply bg-clip-text text-transparent;
-    background: var(--gradient-hero);
+    background: var(--gradient-secondary);
   }
 
   .animate-fade-up {

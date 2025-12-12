@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, Phone, Mail } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
+import logo from '@/assets/logo.png';
 
 const navLinks = [
   { name: 'Home', path: '/' },
@@ -54,9 +55,9 @@ export function Header() {
               <Phone className="w-4 h-4" />
               <span className="hidden sm:inline">240-278-1871</span>
             </a>
-            <a href="mailto:hello@moheritagecares.com" className="flex items-center gap-2 hover:text-accent transition-colors">
+            <a href="mailto:hello@zenithallies.com" className="flex items-center gap-2 hover:text-accent transition-colors">
               <Mail className="w-4 h-4" />
-              <span className="hidden lg:inline">hello@moheritagecares.com</span>
+              <span className="hidden lg:inline">hello@zenithallies.com</span>
               <span className="lg:hidden">Email Us</span>
             </a>
           </div>
@@ -77,12 +78,10 @@ export function Header() {
           <div className="flex items-center justify-between h-16 md:h-20">
             {/* Logo */}
             <Link to="/" className="flex items-center gap-2 md:gap-3">
-              <div className="w-10 h-10 md:w-12 md:h-12 gradient-hero rounded-xl flex items-center justify-center">
-                <span className="text-primary-foreground font-serif text-lg md:text-xl font-bold">MH</span>
-              </div>
+              <img src={logo} alt="Zenith Health Allies" className="w-12 h-12 md:w-16 md:h-16 object-contain" />
               <div className="hidden xs:block">
-                <span className="font-serif text-lg md:text-xl text-foreground">Mo Heritage</span>
-                <p className="text-xs text-muted-foreground hidden sm:block">Health Care Services</p>
+                <span className="font-serif text-lg md:text-xl text-primary font-semibold">Zenith Health Allies</span>
+                <p className="text-xs text-muted-foreground hidden sm:block">Nursing and Staffing Services</p>
               </div>
             </Link>
 
@@ -95,7 +94,7 @@ export function Header() {
                   className={cn(
                     'px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200',
                     location.pathname === link.path
-                      ? 'bg-primary/10 text-primary'
+                      ? 'bg-secondary/20 text-secondary'
                       : 'text-muted-foreground hover:text-foreground hover:bg-muted'
                   )}
                 >
@@ -138,7 +137,7 @@ export function Header() {
                 className={cn(
                   'px-4 py-3 rounded-lg text-base font-medium transition-all duration-200',
                   location.pathname === link.path
-                    ? 'bg-primary/10 text-primary'
+                    ? 'bg-secondary/20 text-secondary'
                     : 'text-muted-foreground hover:text-foreground hover:bg-muted'
                 )}
               >
@@ -153,13 +152,13 @@ export function Header() {
             
             {/* Mobile Contact Info */}
             <div className="mt-6 pt-6 border-t border-border space-y-3">
-              <a href="tel:240-278-1871" className="flex items-center gap-3 text-muted-foreground hover:text-primary transition-colors">
+              <a href="tel:240-278-1871" className="flex items-center gap-3 text-muted-foreground hover:text-secondary transition-colors">
                 <Phone className="w-5 h-5" />
                 <span>240-278-1871</span>
               </a>
-              <a href="mailto:hello@moheritagecares.com" className="flex items-center gap-3 text-muted-foreground hover:text-primary transition-colors">
+              <a href="mailto:hello@zenithallies.com" className="flex items-center gap-3 text-muted-foreground hover:text-secondary transition-colors">
                 <Mail className="w-5 h-5" />
-                <span className="break-all">hello@moheritagecares.com</span>
+                <span className="break-all">hello@zenithallies.com</span>
               </a>
             </div>
           </nav>
