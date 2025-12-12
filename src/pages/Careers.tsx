@@ -1,38 +1,14 @@
 import { Layout } from '@/components/layout/Layout';
 import { Button } from '@/components/ui/button';
-import { Link } from 'react-router-dom';
-import { Briefcase, MapPin, CheckCircle, ArrowRight } from 'lucide-react';
-
-const positions = [
-  {
-    title: 'Registered Nurse (RN)',
-    type: 'Full-Time',
-    location: 'Maryland',
-    description: 'Join our team of dedicated healthcare professionals providing compassionate care to patients in their homes.',
-    requirements: ['Valid RN license', 'Minimum 2 years experience', 'BLS/CPR certification', 'Strong communication skills'],
-  },
-  {
-    title: 'Licensed Practical Nurse (LPN)',
-    type: 'Full-Time / Part-Time',
-    location: 'Maryland',
-    description: 'Provide nursing care under the supervision of registered nurses, ensuring patient comfort and safety.',
-    requirements: ['Valid LPN license', 'Home health experience preferred', 'Current immunizations', 'Reliable transportation'],
-  },
-  {
-    title: 'Certified Nursing Assistant (CNA)',
-    type: 'Full-Time / Part-Time',
-    location: 'Maryland',
-    description: 'Assist patients with daily living activities and provide basic nursing care in home settings.',
-    requirements: ['Valid CNA certification', 'Ability to lift patients', 'Background check clearance', 'Compassionate attitude'],
-  },
-  {
-    title: 'Healthcare Trainer',
-    type: 'Contract',
-    location: 'Maryland',
-    description: 'Deliver comprehensive healthcare training programs to DDA provider agencies and individuals.',
-    requirements: ['Teaching certification', 'Healthcare background', 'Excellent presentation skills', 'Curriculum development experience'],
-  },
-];
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { Label } from '@/components/ui/label';
+import { Checkbox } from '@/components/ui/checkbox';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { useState } from 'react';
+import { useToast } from '@/hooks/use-toast';
+import { Briefcase, CheckCircle, Upload } from 'lucide-react';
 
 const benefits = [
   'Competitive salary packages',
@@ -43,115 +19,426 @@ const benefits = [
   'Paid time off',
 ];
 
+const states = [
+  'Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware',
+  'Florida', 'Georgia', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky',
+  'Louisiana', 'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi',
+  'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico',
+  'New York', 'North Carolina', 'North Dakota', 'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania',
+  'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont',
+  'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming', 'District of Columbia',
+];
+
 export default function CareersPage() {
+  const { toast } = useToast();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    address: '',
+    city: '',
+    state: '',
+    zipCode: '',
+    phone: '',
+    license: [] as string[],
+    isOver18: '',
+    hasDriverLicense: '',
+    ownsCar: '',
+    preferredShifts: [] as string[],
+    previousExperience: '',
+    resume: null as File | null,
+    howDidYouHear: '',
+    consent: false,
+  });
+
+  const handleLicenseChange = (license: string, checked: boolean) => {
+    setFormData(prev => ({
+      ...prev,
+      license: checked 
+        ? [...prev.license, license] 
+        : prev.license.filter(l => l !== license)
+    }));
+  };
+
+  const handleShiftChange = (shift: string, checked: boolean) => {
+    setFormData(prev => ({
+      ...prev,
+      preferredShifts: checked 
+        ? [...prev.preferredShifts, shift] 
+        : prev.preferredShifts.filter(s => s !== shift)
+    }));
+  };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const validTypes = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
+      if (!validTypes.includes(file.type)) {
+        toast({
+          title: 'Invalid file type',
+          description: 'Please upload a .doc, .docx, or .pdf file.',
+          variant: 'destructive',
+        });
+        return;
+      }
+      if (file.size > 10 * 1024 * 1024) {
+        toast({
+          title: 'File too large',
+          description: 'Please upload a file smaller than 10MB.',
+          variant: 'destructive',
+        });
+        return;
+      }
+      setFormData(prev => ({ ...prev, resume: file }));
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!formData.consent) {
+      toast({
+        title: 'Consent required',
+        description: 'Please accept the privacy consent to submit your application.',
+        variant: 'destructive',
+      });
+      return;
+    }
+    setIsSubmitting(true);
+    
+    // Simulate form submission
+    await new Promise(resolve => setTimeout(resolve, 1500));
+    
+    toast({
+      title: 'Application Submitted!',
+      description: 'Thank you for your interest. We will review your application and get back to you soon.',
+    });
+    
+    setIsSubmitting(false);
+    // Reset form
+    setFormData({
+      name: '',
+      email: '',
+      address: '',
+      city: '',
+      state: '',
+      zipCode: '',
+      phone: '',
+      license: [],
+      isOver18: '',
+      hasDriverLicense: '',
+      ownsCar: '',
+      preferredShifts: [],
+      previousExperience: '',
+      resume: null,
+      howDidYouHear: '',
+      consent: false,
+    });
+  };
+
   return (
     <Layout>
       {/* Hero Section */}
-      <section className="relative py-16 md:py-24 gradient-hero">
-        <div className="absolute inset-0 bg-foreground/40" />
+      <section className="relative py-20 md:py-28 gradient-hero">
+        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmZmZmYiIGZpbGwtb3BhY2l0eT0iMC4wNSI+PGNpcmNsZSBjeD0iMzAiIGN5PSIzMCIgcj0iMiIvPjwvZz48L2c+PC9zdmc+')] opacity-50" />
         <div className="container mx-auto px-4 relative z-10 text-center">
-          <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-primary-foreground mb-4 md:mb-6">
+          <span className="inline-flex items-center gap-2 px-4 py-2 bg-secondary/20 text-primary-foreground rounded-full text-sm font-medium mb-6 border border-secondary/30">
+            <Briefcase className="w-4 h-4" />
+            Join Our Team
+          </span>
+          <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl text-primary-foreground mb-6">
             Careers
           </h1>
-          <p className="text-primary-foreground/80 text-base md:text-lg max-w-2xl mx-auto px-4">
-            Join our team of dedicated healthcare professionals and make a difference 
-            in people's lives every day.
+          <p className="text-primary-foreground/85 text-lg md:text-xl max-w-2xl mx-auto font-light">
+            Join our team of dedicated healthcare professionals and make a difference in people's lives every day.
           </p>
         </div>
       </section>
 
-      {/* Why Join Us */}
-      <section className="py-16 md:py-24">
+      {/* Benefits Section */}
+      <section className="py-16 md:py-24 bg-muted/30">
         <div className="container mx-auto px-4">
-          <div className="grid lg:grid-cols-2 gap-10 md:gap-16 items-center">
-            <div>
-              <span className="inline-block px-3 py-1.5 md:px-4 md:py-2 bg-primary/10 text-primary rounded-full text-xs md:text-sm font-medium mb-3 md:mb-4">
-                Why Join Us
-              </span>
-              <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl text-foreground mb-4 md:mb-6">
-                Build Your Career With Mo Heritage
-              </h2>
-              <p className="text-muted-foreground text-base md:text-lg leading-relaxed mb-6 md:mb-8">
-                At Mo Heritage Health Care Services, we believe our employees are our greatest asset. 
-                We offer a supportive work environment where you can grow professionally while making 
-                a meaningful impact on the lives of our patients and their families.
-              </p>
-              <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4">
-                {benefits.map((benefit, index) => (
-                  <li key={index} className="flex items-center gap-2">
-                    <CheckCircle className="w-4 h-4 md:w-5 md:h-5 text-primary flex-shrink-0" />
-                    <span className="text-foreground text-sm md:text-base">{benefit}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div className="bg-secondary/30 p-6 md:p-10 rounded-2xl">
-              <h3 className="font-serif text-xl md:text-2xl text-foreground mb-3 md:mb-4">Ready to Apply?</h3>
-              <p className="text-muted-foreground mb-4 md:mb-6 text-sm md:text-base">
-                Submit your resume and cover letter to our HR department. We'll review 
-                your application and get back to you within 5 business days.
-              </p>
-              <Button variant="hero" size="lg" className="w-full sm:w-auto" asChild>
-                <Link to="/contact">
-                  Apply Now
-                  <ArrowRight className="w-4 h-4 ml-2" />
-                </Link>
-              </Button>
-            </div>
+          <div className="text-center mb-12">
+            <h2 className="font-serif text-3xl md:text-4xl text-foreground mb-4">Why Join Us?</h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              At Zenith Health Allies, we believe our employees are our greatest asset.
+            </p>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 max-w-4xl mx-auto">
+            {benefits.map((benefit, index) => (
+              <div key={index} className="flex items-center gap-3 bg-card p-4 rounded-xl shadow-soft">
+                <CheckCircle className="w-5 h-5 text-secondary flex-shrink-0" />
+                <span className="text-foreground text-sm md:text-base">{benefit}</span>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Open Positions */}
-      <section className="py-16 md:py-24 bg-secondary/30">
+      {/* Application Form */}
+      <section className="py-16 md:py-24">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-10 md:mb-16">
-            <span className="inline-block px-3 py-1.5 md:px-4 md:py-2 bg-primary/10 text-primary rounded-full text-xs md:text-sm font-medium mb-3 md:mb-4">
-              Open Positions
-            </span>
-            <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl text-foreground mb-3 md:mb-4">
-              Current Job Openings
-            </h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto text-sm md:text-base px-4">
-              Explore our available positions and find the right opportunity for you.
-            </p>
-          </div>
+          <div className="max-w-3xl mx-auto">
+            <div className="text-center mb-12">
+              <h2 className="font-serif text-3xl md:text-4xl text-foreground mb-4">Apply Now</h2>
+              <p className="text-muted-foreground">
+                Fill out the form below to submit your application. Fields marked with * are required.
+              </p>
+            </div>
 
-          <div className="grid md:grid-cols-2 gap-6 md:gap-8">
-            {positions.map((position, index) => (
-              <div key={index} className="bg-card p-5 md:p-8 rounded-2xl shadow-soft hover:shadow-medium transition-shadow">
-                <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 mb-3 md:mb-4">
+            <form onSubmit={handleSubmit} className="bg-card p-6 md:p-10 rounded-2xl shadow-soft space-y-6">
+              {/* Personal Information */}
+              <div className="space-y-4">
+                <h3 className="font-serif text-xl text-foreground border-b border-border pb-2">Personal Information</h3>
+                
+                <div>
+                  <Label htmlFor="name">Name *</Label>
+                  <Input
+                    id="name"
+                    placeholder="Enter name here"
+                    value={formData.name}
+                    onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
+                    required
+                    className="mt-1.5"
+                  />
+                </div>
+
+                <div>
+                  <Label htmlFor="email">Email Address *</Label>
+                  <Input
+                    id="email"
+                    type="email"
+                    placeholder="example@domain.com"
+                    value={formData.email}
+                    onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
+                    required
+                    className="mt-1.5"
+                  />
+                </div>
+
+                <div>
+                  <Label htmlFor="address">Address *</Label>
+                  <Input
+                    id="address"
+                    placeholder="Enter address here"
+                    value={formData.address}
+                    onChange={(e) => setFormData(prev => ({ ...prev, address: e.target.value }))}
+                    required
+                    className="mt-1.5"
+                  />
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                   <div>
-                    <h3 className="font-serif text-lg md:text-xl text-foreground mb-2">{position.title}</h3>
-                    <div className="flex flex-wrap gap-2 md:gap-3">
-                      <span className="inline-flex items-center gap-1 text-xs md:text-sm text-muted-foreground">
-                        <Briefcase className="w-3 h-3 md:w-4 md:h-4" />
-                        {position.type}
-                      </span>
-                      <span className="inline-flex items-center gap-1 text-xs md:text-sm text-muted-foreground">
-                        <MapPin className="w-3 h-3 md:w-4 md:h-4" />
-                        {position.location}
-                      </span>
-                    </div>
+                    <Label htmlFor="city">City *</Label>
+                    <Input
+                      id="city"
+                      placeholder="Enter city here"
+                      value={formData.city}
+                      onChange={(e) => setFormData(prev => ({ ...prev, city: e.target.value }))}
+                      required
+                      className="mt-1.5"
+                    />
+                  </div>
+                  <div>
+                    <Label htmlFor="state">State</Label>
+                    <Select value={formData.state} onValueChange={(value) => setFormData(prev => ({ ...prev, state: value }))}>
+                      <SelectTrigger className="mt-1.5">
+                        <SelectValue placeholder="Select state" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {states.map((state) => (
+                          <SelectItem key={state} value={state}>{state}</SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div>
+                    <Label htmlFor="zipCode">Zip Code *</Label>
+                    <Input
+                      id="zipCode"
+                      placeholder="Enter zip code"
+                      value={formData.zipCode}
+                      onChange={(e) => setFormData(prev => ({ ...prev, zipCode: e.target.value }))}
+                      required
+                      className="mt-1.5"
+                    />
                   </div>
                 </div>
-                <p className="text-muted-foreground mb-4 md:mb-6 text-sm md:text-base">{position.description}</p>
-                <div className="mb-4 md:mb-6">
-                  <p className="text-sm font-medium text-foreground mb-2 md:mb-3">Requirements:</p>
-                  <ul className="space-y-1 md:space-y-2">
-                    {position.requirements.map((req, i) => (
-                      <li key={i} className="flex items-center gap-2 text-xs md:text-sm text-muted-foreground">
-                        <CheckCircle className="w-3 h-3 md:w-4 md:h-4 text-primary flex-shrink-0" />
-                        {req}
-                      </li>
-                    ))}
-                  </ul>
+
+                <div>
+                  <Label htmlFor="phone">Phone Number *</Label>
+                  <Input
+                    id="phone"
+                    type="tel"
+                    placeholder="+1 (number)"
+                    value={formData.phone}
+                    onChange={(e) => setFormData(prev => ({ ...prev, phone: e.target.value }))}
+                    required
+                    className="mt-1.5"
+                  />
                 </div>
-                <Button variant="outline" size="default" className="w-full sm:w-auto" asChild>
-                  <Link to="/contact">Apply for this Position</Link>
-                </Button>
               </div>
-            ))}
+
+              {/* Qualifications */}
+              <div className="space-y-4">
+                <h3 className="font-serif text-xl text-foreground border-b border-border pb-2">Qualifications</h3>
+                
+                <div>
+                  <Label className="mb-3 block">What License Do You Currently Hold?</Label>
+                  <div className="flex flex-wrap gap-4">
+                    {['HHA', 'LPN', 'RN', 'Other'].map((license) => (
+                      <div key={license} className="flex items-center gap-2">
+                        <Checkbox
+                          id={`license-${license}`}
+                          checked={formData.license.includes(license)}
+                          onCheckedChange={(checked) => handleLicenseChange(license, checked as boolean)}
+                        />
+                        <Label htmlFor={`license-${license}`} className="cursor-pointer font-normal">{license}</Label>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div>
+                  <Label className="mb-3 block">Are you over 18?</Label>
+                  <RadioGroup
+                    value={formData.isOver18}
+                    onValueChange={(value) => setFormData(prev => ({ ...prev, isOver18: value }))}
+                    className="flex gap-6"
+                  >
+                    <div className="flex items-center gap-2">
+                      <RadioGroupItem value="yes" id="over18-yes" />
+                      <Label htmlFor="over18-yes" className="cursor-pointer font-normal">Yes</Label>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <RadioGroupItem value="no" id="over18-no" />
+                      <Label htmlFor="over18-no" className="cursor-pointer font-normal">No</Label>
+                    </div>
+                  </RadioGroup>
+                </div>
+
+                <div>
+                  <Label className="mb-3 block">Do you have a driver's license?</Label>
+                  <RadioGroup
+                    value={formData.hasDriverLicense}
+                    onValueChange={(value) => setFormData(prev => ({ ...prev, hasDriverLicense: value }))}
+                    className="flex gap-6"
+                  >
+                    <div className="flex items-center gap-2">
+                      <RadioGroupItem value="yes" id="driver-yes" />
+                      <Label htmlFor="driver-yes" className="cursor-pointer font-normal">Yes</Label>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <RadioGroupItem value="no" id="driver-no" />
+                      <Label htmlFor="driver-no" className="cursor-pointer font-normal">No</Label>
+                    </div>
+                  </RadioGroup>
+                </div>
+
+                <div>
+                  <Label className="mb-3 block">Do you own a car?</Label>
+                  <RadioGroup
+                    value={formData.ownsCar}
+                    onValueChange={(value) => setFormData(prev => ({ ...prev, ownsCar: value }))}
+                    className="flex gap-6"
+                  >
+                    <div className="flex items-center gap-2">
+                      <RadioGroupItem value="yes" id="car-yes" />
+                      <Label htmlFor="car-yes" className="cursor-pointer font-normal">Yes</Label>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <RadioGroupItem value="no" id="car-no" />
+                      <Label htmlFor="car-no" className="cursor-pointer font-normal">No</Label>
+                    </div>
+                  </RadioGroup>
+                </div>
+
+                <div>
+                  <Label className="mb-3 block">What shifts would you prefer?</Label>
+                  <div className="flex flex-wrap gap-4">
+                    {['Days', 'PM', 'Nights', 'Live-in'].map((shift) => (
+                      <div key={shift} className="flex items-center gap-2">
+                        <Checkbox
+                          id={`shift-${shift}`}
+                          checked={formData.preferredShifts.includes(shift)}
+                          onCheckedChange={(checked) => handleShiftChange(shift, checked as boolean)}
+                        />
+                        <Label htmlFor={`shift-${shift}`} className="cursor-pointer font-normal">{shift}</Label>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              {/* Experience & Resume */}
+              <div className="space-y-4">
+                <h3 className="font-serif text-xl text-foreground border-b border-border pb-2">Experience & Resume</h3>
+                
+                <div>
+                  <Label htmlFor="experience">Previous Experience</Label>
+                  <Textarea
+                    id="experience"
+                    placeholder="Enter previous experience here"
+                    value={formData.previousExperience}
+                    onChange={(e) => setFormData(prev => ({ ...prev, previousExperience: e.target.value }))}
+                    className="mt-1.5 min-h-[120px]"
+                  />
+                </div>
+
+                <div>
+                  <Label htmlFor="resume">Attach Resume (accepted file formats: .doc, .docx, .pdf | Max: 10MB) *</Label>
+                  <div className="mt-1.5">
+                    <label htmlFor="resume" className="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed border-border rounded-xl cursor-pointer bg-muted/30 hover:bg-muted/50 transition-colors">
+                      <div className="flex flex-col items-center justify-center pt-5 pb-6">
+                        <Upload className="w-8 h-8 text-muted-foreground mb-2" />
+                        <p className="text-sm text-muted-foreground">
+                          {formData.resume ? formData.resume.name : 'Click to upload or drag and drop'}
+                        </p>
+                        <p className="text-xs text-muted-foreground mt-1">.doc, .docx, or .pdf (Max 10MB)</p>
+                      </div>
+                      <input
+                        id="resume"
+                        type="file"
+                        accept=".doc,.docx,.pdf"
+                        onChange={handleFileChange}
+                        className="hidden"
+                        required
+                      />
+                    </label>
+                  </div>
+                </div>
+
+                <div>
+                  <Label htmlFor="howDidYouHear">How did you hear about us?</Label>
+                  <Input
+                    id="howDidYouHear"
+                    placeholder="Enter how did you hear about us here"
+                    value={formData.howDidYouHear}
+                    onChange={(e) => setFormData(prev => ({ ...prev, howDidYouHear: e.target.value }))}
+                    className="mt-1.5"
+                  />
+                </div>
+              </div>
+
+              {/* Consent */}
+              <div className="bg-muted/30 p-4 rounded-xl">
+                <div className="flex items-start gap-3">
+                  <Checkbox
+                    id="consent"
+                    checked={formData.consent}
+                    onCheckedChange={(checked) => setFormData(prev => ({ ...prev, consent: checked as boolean }))}
+                    className="mt-1"
+                  />
+                  <Label htmlFor="consent" className="cursor-pointer font-normal text-sm text-muted-foreground leading-relaxed">
+                    I consent to the collection, use, storage, and processing of my personal and, where applicable, health-related information, including any data I submit on behalf of others, for the purpose of evaluating or fulfilling my request made through this form. I understand this will be handled in accordance with the Privacy Notice.
+                  </Label>
+                </div>
+              </div>
+
+              <Button type="submit" variant="hero" size="lg" className="w-full" disabled={isSubmitting}>
+                {isSubmitting ? 'Submitting...' : 'Submit Application'}
+              </Button>
+            </form>
           </div>
         </div>
       </section>
