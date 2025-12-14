@@ -37,7 +37,7 @@ export function HeroSection() {
       setTimeout(() => {
         setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
         setIsTransitioning(false);
-      }, 600);
+      }, 500);
     }, 6000);
 
     return () => clearInterval(interval);
@@ -64,16 +64,15 @@ export function HeroSection() {
               }`}
             />
           </div>
-          {/* Elegant gradient overlay - lighter, more sophisticated */}
-          <div className="absolute inset-0 bg-gradient-to-r from-cream/95 via-cream/80 to-cream/40" />
-          <div className="absolute inset-0 bg-gradient-to-t from-cream/60 via-transparent to-transparent" />
+          {/* Light overlay */}
+          <div className="absolute inset-0 bg-gradient-to-r from-cream/95 via-cream/85 to-cream/50" />
+          <div className="absolute inset-0 bg-gradient-to-t from-cream/40 via-transparent to-transparent" />
         </div>
       ))}
 
       {/* Decorative Elements */}
-      <div className="hidden lg:block absolute top-20 right-20 w-96 h-96 border border-primary/10 rounded-full animate-pulse-soft" />
-      <div className="hidden lg:block absolute bottom-32 right-40 w-64 h-64 border border-teal/10 rounded-full" />
-      <div className="hidden lg:block absolute top-40 right-1/3 w-3 h-3 bg-accent/40 rounded-full animate-float" />
+      <div className="hidden lg:block absolute top-24 right-24 w-80 h-80 border border-primary/10 rounded-full animate-pulse-soft" />
+      <div className="hidden lg:block absolute bottom-32 right-48 w-56 h-56 border border-accent/10 rounded-full" />
 
       <div className="container mx-auto px-4 relative z-10 py-20 md:py-0">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
@@ -91,27 +90,27 @@ export function HeroSection() {
                       setIsTransitioning(false);
                     }, 300);
                   }}
-                  className={`h-1 rounded-full transition-all duration-500 ${
+                  className={`h-1.5 rounded-full transition-all duration-500 ${
                     index === currentSlide 
-                      ? 'w-12 bg-accent' 
-                      : 'w-6 bg-primary/20 hover:bg-primary/40'
+                      ? 'w-12 bg-primary' 
+                      : 'w-6 bg-foreground/20 hover:bg-foreground/30'
                   }`}
                 />
               ))}
             </div>
 
             {/* Heading */}
-            <div className={`transition-all duration-600 ${isTransitioning ? 'opacity-0 translate-y-4' : 'opacity-100 translate-y-0'}`}>
+            <div className={`transition-all duration-500 ${isTransitioning ? 'opacity-0 translate-y-4' : 'opacity-100 translate-y-0'}`}>
               <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-foreground leading-[1.1] mb-2 opacity-0 animate-fade-up stagger-1">
                 {slide.title}
               </h1>
-              <p className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-teal leading-[1.1] mb-8 opacity-0 animate-fade-up stagger-2">
+              <p className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-primary leading-[1.1] mb-8 opacity-0 animate-fade-up stagger-2">
                 {slide.subtitle}
               </p>
             </div>
 
             {/* Description */}
-            <p className={`text-lg md:text-xl text-muted-foreground leading-relaxed mb-10 max-w-xl opacity-0 animate-fade-up stagger-3 transition-all duration-600 ${isTransitioning ? 'opacity-0' : ''}`}>
+            <p className={`text-lg md:text-xl text-muted-foreground leading-relaxed mb-10 max-w-xl opacity-0 animate-fade-up stagger-3 transition-all duration-500 ${isTransitioning ? 'opacity-0' : ''}`}>
               {slide.description}
             </p>
 
@@ -123,7 +122,7 @@ export function HeroSection() {
                   <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
                 </Link>
               </Button>
-              <Button variant="outline" size="lg" className="w-full sm:w-auto text-base px-8 border-primary/30 hover:bg-primary/5" asChild>
+              <Button variant="outline" size="lg" className="w-full sm:w-auto text-base px-8" asChild>
                 <Link to="/contact">
                   <Play className="w-4 h-4 mr-2" />
                   Book Consultation
@@ -136,8 +135,8 @@ export function HeroSection() {
               <div className="flex items-center gap-3">
                 <div className="flex -space-x-3">
                   {[1, 2, 3, 4].map((i) => (
-                    <div key={i} className="w-10 h-10 rounded-full bg-gradient-to-br from-primary/20 to-teal/20 border-2 border-cream flex items-center justify-center">
-                      <span className="text-xs font-medium text-primary">{i}</span>
+                    <div key={i} className="w-10 h-10 rounded-full bg-secondary border-2 border-cream flex items-center justify-center">
+                      <span className="text-xs font-medium text-foreground">{i}</span>
                     </div>
                   ))}
                 </div>
@@ -175,17 +174,17 @@ export function HeroSection() {
                   alt="Healthcare"
                   className="w-full h-[500px] object-cover"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-primary/60 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-accent/80 to-transparent" />
                 <div className="absolute bottom-0 left-0 right-0 p-8">
-                  <p className="text-primary-foreground/80 text-sm mb-2">Next</p>
-                  <p className="text-primary-foreground font-serif text-2xl">
+                  <p className="text-accent-foreground/80 text-sm mb-2">Next</p>
+                  <p className="text-accent-foreground font-serif text-2xl">
                     {heroSlides[(currentSlide + 1) % heroSlides.length].title}
                   </p>
                 </div>
               </div>
 
               {/* Bottom accent */}
-              <div className="absolute -bottom-4 -right-4 w-32 h-32 bg-accent/10 rounded-2xl -z-10" />
+              <div className="absolute -bottom-4 -right-4 w-32 h-32 bg-primary/10 rounded-2xl -z-10" />
             </div>
           </div>
         </div>
