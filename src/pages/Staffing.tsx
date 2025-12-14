@@ -1,9 +1,43 @@
 import { Layout } from '@/components/layout/Layout';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
-import { Users, Building2, CheckCircle, Clock, Shield, Heart, ArrowRight } from 'lucide-react';
+import { Users, Building2, CheckCircle, Clock, Shield, Heart, ArrowRight, GraduationCap, BookOpen, Award, ExternalLink } from 'lucide-react';
 import nurseImage from '@/assets/nurse-portrait.jpg';
-import homeCareImage from '@/assets/home-care.jpg';
+import trainingImage from '@/assets/training-class.jpg';
+
+const trainingPrograms = [
+  {
+    title: 'Home Health Aide (HHA)',
+    description: 'Comprehensive training for entry-level healthcare professionals providing in-home care.',
+    duration: '75 Hours',
+    certification: 'State Certified',
+  },
+  {
+    title: 'Certified Nursing Assistant (CNA)',
+    description: 'Prepare for a rewarding career assisting patients with daily activities and basic care.',
+    duration: '120 Hours',
+    certification: 'State Certified',
+  },
+  {
+    title: 'CPR & First Aid',
+    description: 'Life-saving skills certification for healthcare and non-healthcare professionals.',
+    duration: '8 Hours',
+    certification: 'AHA Certified',
+  },
+  {
+    title: 'Medication Technician',
+    description: 'Learn proper medication administration techniques and safety protocols.',
+    duration: '16 Hours',
+    certification: 'State Certified',
+  },
+];
+
+const benefits = [
+  { icon: GraduationCap, title: 'Expert Instructors', description: 'Learn from experienced healthcare professionals.' },
+  { icon: BookOpen, title: 'Flexible Schedules', description: 'Day, evening, and weekend classes available.' },
+  { icon: Award, title: 'Recognized Certifications', description: 'State-approved training programs.' },
+  { icon: Users, title: 'Job Placement Support', description: 'Career assistance after graduation.' },
+];
 
 const staffingTypes = [
   {
@@ -24,142 +58,232 @@ const staffingTypes = [
   },
 ];
 
-const benefits = [
-  { icon: Clock, title: '24/7 Availability', description: 'Round-the-clock support for your staffing needs.' },
-  { icon: Shield, title: 'Fully Vetted', description: 'All professionals undergo thorough background checks.' },
-  { icon: Heart, title: 'Quality Care', description: 'Compassionate professionals committed to excellence.' },
-  { icon: Users, title: 'Diverse Talent', description: 'Access to a wide range of healthcare specialists.' },
-];
-
 export default function StaffingPage() {
   return (
     <Layout>
-      {/* Hero Section */}
-      <section className="relative py-16 md:py-24 gradient-hero">
-        <div className="absolute inset-0 bg-foreground/40" />
-        <div className="container mx-auto px-4 relative z-10 text-center">
-          <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-primary-foreground mb-4 md:mb-6">
-            Healthcare Staffing
-          </h1>
-          <p className="text-primary-foreground/80 text-base md:text-lg max-w-2xl mx-auto px-4">
-            Reliable staffing solutions ensuring seamless support for optimal healthcare services. 
-            Depend on us for qualified professionals.
-          </p>
+      {/* Hero Section - Training Focused */}
+      <section className="relative py-24 md:py-32 bg-cream overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-teal/10 via-transparent to-accent/5" />
+        <div className="absolute top-20 right-20 w-72 h-72 bg-primary/5 rounded-full blur-3xl" />
+        
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div>
+              <span className="inline-block px-4 py-2 bg-teal/10 text-teal rounded-full text-sm font-medium mb-6 opacity-0 animate-fade-up">
+                Healthcare Training & Staffing
+              </span>
+              <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl text-foreground mb-6 leading-tight opacity-0 animate-fade-up stagger-1">
+                Launch Your Healthcare Career
+              </h1>
+              <p className="text-muted-foreground text-lg md:text-xl leading-relaxed mb-8 opacity-0 animate-fade-up stagger-2">
+                Whether you're starting your journey in healthcare or looking to advance your skills, 
+                our comprehensive training programs and certification courses will prepare you for success.
+              </p>
+              
+              {/* Primary CTA - LMS Link */}
+              <div className="flex flex-col sm:flex-row gap-4 opacity-0 animate-fade-up stagger-3">
+                <Button variant="default" size="lg" className="group" asChild>
+                  <a href="https://lms.example.com" target="_blank" rel="noopener noreferrer">
+                    Start Learning Now
+                    <ExternalLink className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+                  </a>
+                </Button>
+                <Button variant="outline" size="lg" asChild>
+                  <Link to="/contact">Request Info</Link>
+                </Button>
+              </div>
+            </div>
+
+            <div className="relative">
+              <img
+                src={trainingImage}
+                alt="Healthcare training class"
+                className="rounded-3xl shadow-strong w-full h-[400px] lg:h-[500px] object-cover"
+              />
+              <div className="absolute -bottom-6 -left-6 bg-card p-5 rounded-2xl shadow-medium">
+                <div className="flex items-center gap-3">
+                  <div className="w-12 h-12 gradient-hero rounded-xl flex items-center justify-center">
+                    <GraduationCap className="w-6 h-6 text-primary-foreground" />
+                  </div>
+                  <div>
+                    <p className="font-serif text-xl text-foreground">500+</p>
+                    <p className="text-sm text-muted-foreground">Graduates</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* Overview */}
-      <section className="py-16 md:py-24">
+      {/* Training Programs */}
+      <section className="py-20 md:py-28">
         <div className="container mx-auto px-4">
-          <div className="grid lg:grid-cols-2 gap-10 md:gap-16 items-center">
-            <div>
-              <span className="inline-block px-3 py-1.5 md:px-4 md:py-2 bg-primary/10 text-primary rounded-full text-xs md:text-sm font-medium mb-3 md:mb-4">
-                Staffing Solutions
-              </span>
-              <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl text-foreground mb-4 md:mb-6">
-                Your Partner in Healthcare Staffing
-              </h2>
-              <p className="text-muted-foreground text-base md:text-lg leading-relaxed mb-6 md:mb-8">
-                At Mo Heritage Health Care Services, we understand the challenges healthcare 
-                facilities face in maintaining adequate staffing levels. Our comprehensive 
-                staffing solutions connect you with qualified, compassionate healthcare 
-                professionals who are ready to make a difference.
-              </p>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4 mb-6 md:mb-8">
-                {staffingTypes.map((type, index) => (
-                  <div key={index} className="p-3 md:p-4 bg-secondary/30 rounded-xl">
-                    <h4 className="font-medium text-foreground mb-1 md:mb-2 text-sm md:text-base">{type.title}</h4>
-                    <p className="text-xs md:text-sm text-muted-foreground">{type.description}</p>
-                  </div>
-                ))}
+          <div className="text-center mb-16">
+            <span className="inline-block px-4 py-2 bg-primary/10 text-primary rounded-full text-sm font-medium mb-4">
+              Training Programs
+            </span>
+            <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-foreground mb-4">
+              Certification Courses
+            </h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto text-lg">
+              State-approved training programs designed to launch your healthcare career
+            </p>
+          </div>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+            {trainingPrograms.map((program, index) => (
+              <div key={index} className="bg-card p-6 rounded-2xl shadow-soft border border-border/50 group hover:shadow-medium transition-all">
+                <div className="flex items-center gap-2 mb-4">
+                  <span className="px-3 py-1 bg-teal/10 text-teal rounded-full text-xs font-medium">
+                    {program.duration}
+                  </span>
+                  <span className="px-3 py-1 bg-accent/10 text-accent rounded-full text-xs font-medium">
+                    {program.certification}
+                  </span>
+                </div>
+                <h3 className="font-serif text-xl text-foreground mb-3">{program.title}</h3>
+                <p className="text-muted-foreground text-sm leading-relaxed mb-4">{program.description}</p>
+                <Button variant="ghost" size="sm" className="group/btn p-0 h-auto" asChild>
+                  <a href="https://lms.example.com" target="_blank" rel="noopener noreferrer">
+                    Learn More
+                    <ArrowRight className="w-4 h-4 ml-1 group-hover/btn:translate-x-1 transition-transform" />
+                  </a>
+                </Button>
               </div>
-              <Button variant="hero" size="lg" className="w-full sm:w-auto" asChild>
-                <Link to="/contact">
-                  Request Staffing
-                  <ArrowRight className="w-4 h-4 ml-2" />
-                </Link>
-              </Button>
-            </div>
-            <div className="grid grid-cols-2 gap-3 md:gap-4">
-              <img src={nurseImage} alt="Nurse" className="rounded-2xl shadow-medium h-60 sm:h-72 md:h-80 object-cover w-full" />
-              <img src={homeCareImage} alt="Healthcare" className="rounded-2xl shadow-medium h-60 sm:h-72 md:h-80 object-cover mt-8 md:mt-12 w-full" />
-            </div>
+            ))}
+          </div>
+
+          {/* CTA Banner */}
+          <div className="bg-gradient-to-r from-teal to-primary p-8 md:p-12 rounded-3xl text-center">
+            <h3 className="font-serif text-2xl md:text-3xl text-primary-foreground mb-4">
+              Ready to Start Your Healthcare Journey?
+            </h3>
+            <p className="text-primary-foreground/80 mb-6 max-w-xl mx-auto">
+              Access our complete course catalog, register for classes, and track your progress on our Learning Management System.
+            </p>
+            <Button variant="accent" size="lg" className="group" asChild>
+              <a href="https://lms.example.com" target="_blank" rel="noopener noreferrer">
+                Access Training Portal
+                <ExternalLink className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+              </a>
+            </Button>
           </div>
         </div>
       </section>
 
       {/* Benefits */}
-      <section className="py-16 md:py-24 bg-secondary/30">
+      <section className="py-20 md:py-28 bg-secondary/30">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-10 md:mb-16">
-            <span className="inline-block px-3 py-1.5 md:px-4 md:py-2 bg-primary/10 text-primary rounded-full text-xs md:text-sm font-medium mb-3 md:mb-4">
+          <div className="text-center mb-16">
+            <span className="inline-block px-4 py-2 bg-accent/10 text-accent rounded-full text-sm font-medium mb-4">
               Why Choose Us
             </span>
-            <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl text-foreground mb-3 md:mb-4">
-              The Mo Heritage Difference
+            <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-foreground mb-4">
+              The Zenith Advantage
             </h2>
           </div>
 
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
             {benefits.map((benefit, index) => (
-              <div key={index} className="bg-card p-4 md:p-8 rounded-2xl shadow-soft text-center group hover:shadow-medium transition-shadow">
-                <div className="w-12 h-12 md:w-16 md:h-16 gradient-hero rounded-xl md:rounded-2xl flex items-center justify-center mx-auto mb-3 md:mb-6 group-hover:scale-110 transition-transform">
-                  <benefit.icon className="w-6 h-6 md:w-8 md:h-8 text-primary-foreground" />
+              <div key={index} className="bg-card p-6 md:p-8 rounded-2xl shadow-soft text-center group hover:shadow-medium transition-all">
+                <div className="w-14 h-14 gradient-hero rounded-xl flex items-center justify-center mx-auto mb-5 group-hover:scale-110 transition-transform">
+                  <benefit.icon className="w-7 h-7 text-primary-foreground" />
                 </div>
-                <h3 className="font-serif text-sm md:text-lg text-foreground mb-1 md:mb-2">{benefit.title}</h3>
-                <p className="text-xs md:text-sm text-muted-foreground">{benefit.description}</p>
+                <h3 className="font-serif text-base md:text-lg text-foreground mb-2">{benefit.title}</h3>
+                <p className="text-sm text-muted-foreground">{benefit.description}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* For Healthcare Facilities */}
-      <section className="py-16 md:py-24">
+      {/* Healthcare Staffing Section */}
+      <section className="py-20 md:py-28">
         <div className="container mx-auto px-4">
-          <div className="bg-card p-5 md:p-12 rounded-2xl shadow-medium">
-            <div className="grid lg:grid-cols-2 gap-8 md:gap-12 items-center">
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+            <div>
+              <span className="inline-block px-4 py-2 bg-primary/10 text-primary rounded-full text-sm font-medium mb-6">
+                For Healthcare Facilities
+              </span>
+              <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-foreground mb-6 leading-tight">
+                Healthcare Staffing Solutions
+              </h2>
+              <p className="text-muted-foreground text-lg leading-relaxed mb-8">
+                At Zenith Health Allies, we understand the challenges healthcare 
+                facilities face in maintaining adequate staffing levels. Our comprehensive 
+                staffing solutions connect you with qualified, compassionate healthcare 
+                professionals who are ready to make a difference.
+              </p>
+              
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
+                {staffingTypes.map((type, index) => (
+                  <div key={index} className="p-4 bg-secondary/50 rounded-xl">
+                    <h4 className="font-medium text-foreground mb-2">{type.title}</h4>
+                    <p className="text-sm text-muted-foreground">{type.description}</p>
+                  </div>
+                ))}
+              </div>
+              
+              <Button variant="default" size="lg" asChild>
+                <Link to="/contact">
+                  Request Staffing
+                  <ArrowRight className="w-4 h-4 ml-2" />
+                </Link>
+              </Button>
+            </div>
+            
+            <div className="grid grid-cols-2 gap-4">
+              <img src={nurseImage} alt="Nurse" className="rounded-2xl shadow-medium h-64 sm:h-72 md:h-80 object-cover w-full" />
+              <img src={trainingImage} alt="Healthcare" className="rounded-2xl shadow-medium h-64 sm:h-72 md:h-80 object-cover mt-8 w-full" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Contact CTA */}
+      <section className="py-20 md:py-28 bg-cream">
+        <div className="container mx-auto px-4">
+          <div className="bg-card p-8 md:p-12 rounded-3xl shadow-medium">
+            <div className="grid lg:grid-cols-2 gap-12 items-center">
               <div>
-                <div className="w-12 h-12 md:w-16 md:h-16 gradient-warm rounded-xl md:rounded-2xl flex items-center justify-center mb-4 md:mb-6">
-                  <Building2 className="w-6 h-6 md:w-8 md:h-8 text-accent-foreground" />
+                <div className="w-16 h-16 gradient-warm rounded-2xl flex items-center justify-center mb-6">
+                  <Building2 className="w-8 h-8 text-accent-foreground" />
                 </div>
-                <h2 className="font-serif text-2xl md:text-3xl text-foreground mb-3 md:mb-4">For Healthcare Facilities</h2>
-                <p className="text-muted-foreground text-base md:text-lg leading-relaxed mb-4 md:mb-6">
-                  Partner with us to ensure your facility always has the skilled professionals 
-                  it needs. We handle the recruitment, vetting, and placement so you can focus 
-                  on what matters most - patient care.
+                <h2 className="font-serif text-2xl md:text-3xl text-foreground mb-4">Partner With Us</h2>
+                <p className="text-muted-foreground text-lg leading-relaxed mb-6">
+                  Whether you're a healthcare facility looking for qualified staff or an individual 
+                  seeking to build your healthcare career, we're here to help.
                 </p>
-                <ul className="space-y-2 md:space-y-3 mb-6 md:mb-8">
+                <ul className="space-y-3 mb-8">
                   {[
                     'Quick turnaround on staffing requests',
                     'Credential verification and compliance',
                     'Flexible contract terms',
                     'Dedicated account management',
                   ].map((item, index) => (
-                    <li key={index} className="flex items-center gap-2">
-                      <CheckCircle className="w-4 h-4 md:w-5 md:h-5 text-primary flex-shrink-0" />
-                      <span className="text-foreground text-sm md:text-base">{item}</span>
+                    <li key={index} className="flex items-center gap-3">
+                      <CheckCircle className="w-5 h-5 text-teal flex-shrink-0" />
+                      <span className="text-foreground">{item}</span>
                     </li>
                   ))}
                 </ul>
-                <Button variant="outline" size="lg" className="w-full sm:w-auto" asChild>
-                  <Link to="/contact">Partner With Us</Link>
-                </Button>
               </div>
-              <div className="bg-secondary/50 p-5 md:p-8 rounded-xl">
-                <h3 className="font-serif text-lg md:text-xl text-foreground mb-3 md:mb-4">Request Staff Today</h3>
-                <p className="text-muted-foreground mb-4 md:mb-6 text-sm md:text-base">
-                  Need healthcare professionals? Fill out our staffing request form or 
-                  give us a call. We'll work to match you with qualified candidates quickly.
+              
+              <div className="bg-secondary/50 p-6 md:p-8 rounded-2xl">
+                <h3 className="font-serif text-xl text-foreground mb-4">Get in Touch</h3>
+                <p className="text-muted-foreground mb-6">
+                  Ready to learn more? Contact us for information about our training programs 
+                  or staffing services.
                 </p>
-                <div className="space-y-3 md:space-y-4">
-                  <a href="tel:240-278-1871" className="block p-3 md:p-4 bg-card rounded-xl hover:shadow-soft transition-shadow">
-                    <p className="text-xs md:text-sm text-muted-foreground">Call us directly</p>
-                    <p className="text-base md:text-lg font-medium text-primary">240-278-1871</p>
+                <div className="space-y-4">
+                  <a href="tel:240-278-1871" className="block p-4 bg-card rounded-xl hover:shadow-soft transition-shadow">
+                    <p className="text-sm text-muted-foreground">Call us directly</p>
+                    <p className="text-lg font-medium text-primary">240-278-1871</p>
                   </a>
-                  <a href="mailto:hello@moheritagecares.com" className="block p-3 md:p-4 bg-card rounded-xl hover:shadow-soft transition-shadow">
-                    <p className="text-xs md:text-sm text-muted-foreground">Email us</p>
-                    <p className="text-base md:text-lg font-medium text-primary break-all">hello@moheritagecares.com</p>
+                  <a href="mailto:hello@moheritagecares.com" className="block p-4 bg-card rounded-xl hover:shadow-soft transition-shadow">
+                    <p className="text-sm text-muted-foreground">Email us</p>
+                    <p className="text-lg font-medium text-primary break-all">hello@moheritagecares.com</p>
                   </a>
                 </div>
               </div>
