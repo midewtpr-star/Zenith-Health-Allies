@@ -1,6 +1,7 @@
 import { Layout } from '@/components/layout/Layout';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import { Heart, Award, Users, Target, Eye, Sparkles } from 'lucide-react';
 import { ScrollAnimate } from '@/hooks/useScrollAnimation';
 import homeCareImage from '@/assets/home-care.jpg';
@@ -24,26 +25,11 @@ const values = [
 export default function AboutPage() {
   return (
     <Layout>
-      {/* Hero Section */}
-      <section className="relative py-24 md:py-32 bg-secondary overflow-hidden">
-        <div className="absolute top-20 right-20 w-64 h-64 bg-primary/5 rounded-full blur-3xl" />
-        <div className="absolute bottom-20 left-20 w-48 h-48 bg-accent/5 rounded-full blur-3xl" />
-        
-        <div className="container mx-auto px-4 relative z-10">
-          <ScrollAnimate className="max-w-3xl mx-auto text-center">
-            <span className="inline-block px-4 py-2 bg-primary/10 text-primary rounded-full text-sm font-medium mb-6">
-              Our Story
-            </span>
-            <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl text-foreground mb-6">
-              About Zenith Health Allies
-            </h1>
-            <p className="text-muted-foreground text-lg md:text-xl leading-relaxed">
-              Caring for your loved ones with compassion, expertise, and an unwavering commitment to excellence.
-            </p>
-          </ScrollAnimate>
-        </div>
-      </section>
-
+      <Helmet>
+        <title>About Zenith Health Allies | Heritage in Health Excellence</title>
+        <meta name="description" content="Learn about Zenith Health Allies’ mission, vision, and values, delivering compassionate healthcare, training, and staffing services across Maryland." />
+        <link rel="canonical" href="https://zenithhealthallies.org/about" />
+      </Helmet>
       {/* Who We Are */}
       <section className="py-20 md:py-28 relative bg-background">
         <div className="container mx-auto px-4">

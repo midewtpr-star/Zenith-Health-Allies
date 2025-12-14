@@ -21,7 +21,7 @@ const NotFound = () => {
             The page you're looking for doesn't exist or has been moved. 
             Let's get you back on track.
           </p>
-          <Button variant="hero" size="lg" asChild>
+          <Button size="lg" asChild>
             <Link to="/">
               <Home className="w-4 h-4 mr-2" />
               Back to Home

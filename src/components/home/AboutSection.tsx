@@ -46,13 +46,13 @@ export function AboutSection() {
           {/* Content Side */}
           <div className="order-1 lg:order-2">
             <span className="inline-block px-3 py-1.5 md:px-4 md:py-2 bg-primary/10 text-primary rounded-full text-xs md:text-sm font-medium mb-3 md:mb-4">
-              About Mo Heritage
+              About Zenith Health Allies
             </span>
             <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-foreground mb-4 md:mb-6 leading-tight">
               Start Your Home Health Care Journey With Us
             </h2>
             <p className="text-muted-foreground text-base md:text-lg leading-relaxed mb-6 md:mb-8">
-              At Mo Heritage Health Care Services, we invite you to commence your healthcare, 
+              At Zenith Health Allies, we invite you to commence your healthcare, 
               training, and staffing journey with a commitment to compassionate and personalized 
               support. Our dedicated team stands ready to guide you through a pathway of expert care, 
               ensuring comfort and well-being in the familiarity of your home.
@@ -68,7 +68,7 @@ export function AboutSection() {
               ))}
             </ul>
 
-            <Button variant="hero" size="lg" className="w-full sm:w-auto" asChild>
+            <Button  size="lg" className="w-full sm:w-auto" asChild>
               <Link to="/about">
                 Learn More About Us
                 <ArrowRight className="w-5 h-5 ml-2" />

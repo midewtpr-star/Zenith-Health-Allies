@@ -94,7 +94,13 @@ export function Footer() {
               <li>
                 <a href="tel:240-278-1871" className="flex items-start gap-3 text-background/70 hover:text-accent transition-colors">
                   <Phone className="w-4 h-4 md:w-5 md:h-5 mt-0.5 text-accent flex-shrink-0" />
-                  <span className="text-sm">240-278-1871</span>
+                  <span className="text-sm">(240) 278-1871</span>
+                </a>
+              </li>
+              <li>
+                <a href="tel:240-610-1390" className="flex items-start gap-3 text-background/70 hover:text-accent transition-colors">
+                  <Phone className="w-4 h-4 md:w-5 md:h-5 mt-0.5 text-accent flex-shrink-0" />
+                  <span className="text-sm">(240) 610-1390</span>
                 </a>
               </li>
               <li>
@@ -106,7 +112,7 @@ export function Footer() {
               <li>
                 <div className="flex items-start gap-3 text-background/70">
                   <MapPin className="w-4 h-4 md:w-5 md:h-5 mt-0.5 text-accent flex-shrink-0" />
-                  <span className="text-sm">7007 Sequoia Place, Beltsville, MD 20705</span>
+                  <span className="text-sm">10005 Columbia Rd, suite L-261 Maryland, 21046</span>
                 </div>
               </li>
             </ul>

@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { Users, Building2, CheckCircle, Clock, Shield, Heart, ArrowRight, GraduationCap, BookOpen, Award, ExternalLink } from 'lucide-react';
 import nurseImage from '@/assets/nurse-portrait.jpg';
 import trainingImage from '@/assets/training-class.jpg';
+import { ScrollAnimate } from '@/hooks/useScrollAnimation';
 
 const trainingPrograms = [
   {
@@ -68,7 +69,8 @@ export default function StaffingPage() {
         
         <div className="container mx-auto px-4 relative z-10">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div>
+            <ScrollAnimate animation="slide-left">
+              <div>
               <span className="inline-block px-4 py-2 bg-teal/10 text-teal rounded-full text-sm font-medium mb-6 opacity-0 animate-fade-up">
                 Healthcare Training & Staffing
               </span>
@@ -92,9 +94,11 @@ export default function StaffingPage() {
                   <Link to="/contact">Request Info</Link>
                 </Button>
               </div>
-            </div>
+              </div>
+            </ScrollAnimate>
 
-            <div className="relative">
+            <ScrollAnimate animation="slide-right">
+              <div className="relative">
               <img
                 src={trainingImage}
                 alt="Healthcare training class"
@@ -111,7 +115,8 @@ export default function StaffingPage() {
                   </div>
                 </div>
               </div>
-            </div>
+              </div>
+            </ScrollAnimate>
           </div>
         </div>
       </section>
@@ -133,7 +138,8 @@ export default function StaffingPage() {
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
             {trainingPrograms.map((program, index) => (
-              <div key={index} className="bg-card p-6 rounded-2xl shadow-soft border border-border/50 group hover:shadow-medium transition-all">
+              <ScrollAnimate key={index} delay={index * 100}>
+                <div className="bg-card p-6 rounded-2xl shadow-soft border border-border/50 group hover:shadow-medium transition-all">
                 <div className="flex items-center gap-2 mb-4">
                   <span className="px-3 py-1 bg-teal/10 text-teal rounded-full text-xs font-medium">
                     {program.duration}
@@ -151,11 +157,13 @@ export default function StaffingPage() {
                   </a>
                 </Button>
               </div>
+              </ScrollAnimate>
             ))}
           </div>
 
           {/* CTA Banner */}
-          <div className="bg-gradient-to-r from-teal to-primary p-8 md:p-12 rounded-3xl text-center">
+          <ScrollAnimate>
+            <div className="bg-gradient-to-r from-teal to-primary p-8 md:p-12 rounded-3xl text-center">
             <h3 className="font-serif text-2xl md:text-3xl text-primary-foreground mb-4">
               Ready to Start Your Healthcare Journey?
             </h3>
@@ -169,6 +177,7 @@ export default function StaffingPage() {
               </a>
             </Button>
           </div>
+          </ScrollAnimate>
         </div>
       </section>
 
@@ -186,13 +195,15 @@ export default function StaffingPage() {
 
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
             {benefits.map((benefit, index) => (
-              <div key={index} className="bg-card p-6 md:p-8 rounded-2xl shadow-soft text-center group hover:shadow-medium transition-all">
+              <ScrollAnimate key={index} delay={index * 100}>
+                <div key={index} className="bg-card p-6 md:p-8 rounded-2xl shadow-soft text-center group hover:shadow-medium transition-all">
                 <div className="w-14 h-14 gradient-hero rounded-xl flex items-center justify-center mx-auto mb-5 group-hover:scale-110 transition-transform">
                   <benefit.icon className="w-7 h-7 text-primary-foreground" />
                 </div>
                 <h3 className="font-serif text-base md:text-lg text-foreground mb-2">{benefit.title}</h3>
                 <p className="text-sm text-muted-foreground">{benefit.description}</p>
               </div>
+              </ScrollAnimate>
             ))}
           </div>
         </div>
@@ -202,7 +213,8 @@ export default function StaffingPage() {
       <section className="py-20 md:py-28">
         <div className="container mx-auto px-4">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
-            <div>
+            <ScrollAnimate animation="slide-left">
+              <div>
               <span className="inline-block px-4 py-2 bg-primary/10 text-primary rounded-full text-sm font-medium mb-6">
                 For Healthcare Facilities
               </span>
@@ -232,11 +244,14 @@ export default function StaffingPage() {
                 </Link>
               </Button>
             </div>
+            </ScrollAnimate>
             
-            <div className="grid grid-cols-2 gap-4">
+            <ScrollAnimate animation="slide-right">
+              <div className="grid grid-cols-2 gap-4">
               <img src={nurseImage} alt="Nurse" className="rounded-2xl shadow-medium h-64 sm:h-72 md:h-80 object-cover w-full" />
               <img src={trainingImage} alt="Healthcare" className="rounded-2xl shadow-medium h-64 sm:h-72 md:h-80 object-cover mt-8 w-full" />
             </div>
+            </ScrollAnimate>
           </div>
         </div>
       </section>
@@ -246,7 +261,8 @@ export default function StaffingPage() {
         <div className="container mx-auto px-4">
           <div className="bg-card p-8 md:p-12 rounded-3xl shadow-medium">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
-              <div>
+              <ScrollAnimate animation="slide-left">
+                <div>
                 <div className="w-16 h-16 gradient-warm rounded-2xl flex items-center justify-center mb-6">
                   <Building2 className="w-8 h-8 text-accent-foreground" />
                 </div>
@@ -268,18 +284,20 @@ export default function StaffingPage() {
                     </li>
                   ))}
                 </ul>
-              </div>
-              
-              <div className="bg-secondary/50 p-6 md:p-8 rounded-2xl">
+                 </div>
+                 </ScrollAnimate>
+               
+               <ScrollAnimate animation="slide-right">
+                 <div className="bg-secondary/50 p-6 md:p-8 rounded-2xl">
                 <h3 className="font-serif text-xl text-foreground mb-4">Get in Touch</h3>
                 <p className="text-muted-foreground mb-6">
                   Ready to learn more? Contact us for information about our training programs 
                   or staffing services.
                 </p>
                 <div className="space-y-4">
-                  <a href="tel:240-278-1871" className="block p-4 bg-card rounded-xl hover:shadow-soft transition-shadow">
+                  <a href="tel:+12402781871" className="block p-4 bg-card rounded-xl hover:shadow-soft transition-shadow">
                     <p className="text-sm text-muted-foreground">Call us directly</p>
-                    <p className="text-lg font-medium text-primary">240-278-1871</p>
+                    <p className="text-lg font-medium text-primary">(240) 278-1871</p>
                   </a>
                   <a href="mailto:hello@moheritagecares.com" className="block p-4 bg-card rounded-xl hover:shadow-soft transition-shadow">
                     <p className="text-sm text-muted-foreground">Email us</p>
@@ -287,6 +305,7 @@ export default function StaffingPage() {
                   </a>
                 </div>
               </div>
+              </ScrollAnimate>
             </div>
           </div>
         </div>

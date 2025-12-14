@@ -46,9 +46,10 @@ export function ContactSection() {
               {/* Contact Cards */}
               <div className="space-y-4">
                 {[
-                  { icon: Phone, label: 'Phone', value: '240-278-1871', href: 'tel:240-278-1871' },
-                  { icon: Mail, label: 'Email', value: 'hello@moheritagecares.com', href: 'mailto:hello@moheritagecares.com' },
-                  { icon: MapPin, label: 'Address', value: '7007 Sequoia Place, Beltsville, MD 20705', href: null },
+                  { icon: Phone, label: 'Main Phone', value: '(240) 278-1871', href: 'tel:240-278-1871' },
+{ icon: Phone, label: 'Secondary Phone', value: '(240) 610-1390', href: 'tel:240-610-1390' },
+{ icon: Mail, label: 'Email', value: 'hello@moheritagecares.com', href: 'mailto:hello@moheritagecares.com' },
+{ icon: MapPin, label: 'Office', value: '10005 Columbia Rd, suite L-261 Maryland, 21046', href: null },
                 ].map((item, index) => (
                   <div
                     key={index}

@@ -100,23 +100,6 @@ export default function ServiceDetailPage() {
 
   return (
     <Layout>
-      {/* Hero Section */}
-      <section className="relative py-20 md:py-28 gradient-hero">
-        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmZmZmYiIGZpbGwtb3BhY2l0eT0iMC4wNSI+PGNpcmNsZSBjeD0iMzAiIGN5PSIzMCIgcj0iMiIvPjwvZz48L2c+PC9zdmc+')] opacity-50" />
-        <div className="container mx-auto px-4 relative z-10">
-          <Link to="/services" className="inline-flex items-center gap-2 text-primary-foreground/70 hover:text-primary-foreground transition-colors mb-6">
-            <ArrowLeft className="w-4 h-4" />
-            <span>Back to Services</span>
-          </Link>
-          <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl text-primary-foreground mb-4">
-            {service.title}
-          </h1>
-          <p className="text-secondary text-lg md:text-xl font-medium">
-            {service.subtitle}
-          </p>
-        </div>
-      </section>
-
       {/* Content Section */}
       <section className="py-20 md:py-28">
         <div className="container mx-auto px-4">
@@ -135,7 +118,7 @@ export default function ServiceDetailPage() {
                   <p key={index} className="mb-4 leading-relaxed">{paragraph}</p>
                 ))}
               </div>
-              <Button variant="hero" size="lg" asChild>
+              <Button size="lg" asChild>
                 <Link to="/contact">
                   Get Started
                   <ArrowRight className="w-4 h-4 ml-2" />
@@ -189,7 +172,7 @@ export default function ServiceDetailPage() {
             Contact us today to discuss your needs and discover how our {service.title.toLowerCase()} can benefit you.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button variant="accent" size="lg" className="px-10" asChild>
+            <Button size="lg" asChild>
               <Link to="/contact">Contact Us</Link>
             </Button>
             <Button variant="glass" size="lg" className="px-10" asChild>

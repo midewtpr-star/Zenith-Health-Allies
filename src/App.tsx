@@ -13,6 +13,7 @@ import Careers from "./pages/Careers";
 import Resources from "./pages/Resources";
 import Staffing from "./pages/Staffing";
 import NotFound from "./pages/NotFound";
+import { HelmetProvider } from "react-helmet-async";
 
 const queryClient = new QueryClient();
 
@@ -21,20 +22,22 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
-      <BrowserRouter>
-        <ScrollToTop />
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/services" element={<Services />} />
-          <Route path="/services/:slug" element={<ServiceDetail />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/careers" element={<Careers />} />
-          <Route path="/resources" element={<Resources />} />
-          <Route path="/staffing" element={<Staffing />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
+      <HelmetProvider>
+        <BrowserRouter>
+          <ScrollToTop />
+          <Routes>
+            <Route path="/" element={<Index />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/services" element={<Services />} />
+            <Route path="/services/:slug" element={<ServiceDetail />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/careers" element={<Careers />} />
+            <Route path="/resources" element={<Resources />} />
+            <Route path="/staffing" element={<Staffing />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </BrowserRouter>
+      </HelmetProvider>
     </TooltipProvider>
   </QueryClientProvider>
 );

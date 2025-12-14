@@ -7,9 +7,10 @@ import { useToast } from '@/hooks/use-toast';
 import { Phone, Mail, MapPin, Clock, Send } from 'lucide-react';
 
 const contactInfo = [
-  { icon: Phone, label: 'Phone', value: '240-278-1871', href: 'tel:240-278-1871' },
-  { icon: Mail, label: 'Email', value: 'hello@moheritagecares.com', href: 'mailto:hello@moheritagecares.com' },
-  { icon: MapPin, label: 'Address', value: '7007 Sequoia Place, Beltsville, MD 20705' },
+  { icon: Phone, label: 'Main Phone', value: '(240) 278-1871', href: 'tel:240-278-1871' },
+{ icon: Phone, label: 'Secondary Phone', value: '(240) 610-1390', href: 'tel:240-610-1390' },
+{ icon: Mail, label: 'Email', value: 'hello@moheritagecares.com', href: 'mailto:hello@moheritagecares.com' },
+{ icon: MapPin, label: 'Office', value: '10005 Columbia Rd, suite L-261 Maryland, 21046' },
   { icon: Clock, label: 'Hours', value: 'Monday - Friday: 9AM - 5PM' },
 ];
 
@@ -31,20 +32,6 @@ export default function ContactPage() {
 
   return (
     <Layout>
-      {/* Hero Section */}
-      <section className="relative py-16 md:py-24 gradient-hero">
-        <div className="absolute inset-0 bg-foreground/40" />
-        <div className="container mx-auto px-4 relative z-10 text-center">
-          <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-primary-foreground mb-4 md:mb-6">
-            Contact Us
-          </h1>
-          <p className="text-primary-foreground/80 text-base md:text-lg max-w-2xl mx-auto px-4">
-            Got questions? We have answers. Reach out to us for dedicated and caring 
-            health services support tailored just for you.
-          </p>
-        </div>
-      </section>
-
       {/* Contact Section */}
       <section className="py-16 md:py-24">
         <div className="container mx-auto px-4">
@@ -137,7 +124,7 @@ export default function ContactPage() {
                 <p className="text-xs md:text-sm text-muted-foreground">
                   By submitting this form you agree to our Privacy Policy
                 </p>
-                <Button type="submit" variant="hero" size="lg" className="w-full" disabled={isLoading}>
+                <Button type="submit" size="lg" className="w-full" disabled={isLoading}>
                   {isLoading ? 'Sending...' : 'Send Message'}
                   <Send className="w-4 h-4 ml-2" />
                 </Button>
