@@ -85,7 +85,7 @@ export default function StaffingPage() {
               {/* Primary CTA - LMS Link */}
               <div className="flex flex-col sm:flex-row gap-4 opacity-0 animate-fade-up stagger-3">
                 <Button variant="default" size="lg" className="group" asChild>
-                  <a href="https://lms.example.com" target="_blank" rel="noopener noreferrer">
+                  <a href="https://www.zenithmastery.org/" target="_blank" rel="noopener noreferrer">
                     Start Learning Now
                     <ExternalLink className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
                   </a>
@@ -163,7 +163,7 @@ export default function StaffingPage() {
 
           {/* CTA Banner */}
           <ScrollAnimate>
-            <div className="bg-gradient-to-r from-teal to-primary p-8 md:p-12 rounded-3xl text-center">
+            <div className="bg-primary p-8 md:p-12 rounded-3xl text-center">
             <h3 className="font-serif text-2xl md:text-3xl text-primary-foreground mb-4">
               Ready to Start Your Healthcare Journey?
             </h3>
@@ -171,7 +171,7 @@ export default function StaffingPage() {
               Access our complete course catalog, register for classes, and track your progress on our Learning Management System.
             </p>
             <Button variant="accent" size="lg" className="group" asChild>
-              <a href="https://lms.example.com" target="_blank" rel="noopener noreferrer">
+              <a href="https://www.zenithmastery.org/" target="_blank" rel="noopener noreferrer">
                 Access Training Portal
                 <ExternalLink className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
               </a>
@@ -197,8 +197,8 @@ export default function StaffingPage() {
             {benefits.map((benefit, index) => (
               <ScrollAnimate key={index} delay={index * 100}>
                 <div key={index} className="bg-card p-6 md:p-8 rounded-2xl shadow-soft text-center group hover:shadow-medium transition-all">
-                <div className="w-14 h-14 gradient-hero rounded-xl flex items-center justify-center mx-auto mb-5 group-hover:scale-110 transition-transform">
-                  <benefit.icon className="w-7 h-7 text-primary-foreground" />
+                <div className="w-14 h-14 rounded-xl flex items-center justify-center mx-auto mb-5 group-hover:scale-110 transition-transform bg-primary/10 text-primary">
+                  <benefit.icon className="w-7 h-7" aria-hidden="true" />
                 </div>
                 <h3 className="font-serif text-base md:text-lg text-foreground mb-2">{benefit.title}</h3>
                 <p className="text-sm text-muted-foreground">{benefit.description}</p>
@@ -310,6 +310,7 @@ export default function StaffingPage() {
           </div>
         </div>
       </section>
+    
     </Layout>
   );
 }

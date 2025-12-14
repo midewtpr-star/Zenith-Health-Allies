@@ -5,6 +5,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { useState } from 'react';
 import { useToast } from '@/hooks/use-toast';
 import { Phone, Mail, MapPin, Clock, Send } from 'lucide-react';
+import { submitToSheets } from '@/lib/forms';
 
 const contactInfo = [
   { icon: Phone, label: 'Main Phone', value: '(240) 278-1871', href: 'tel:240-278-1871' },
@@ -21,13 +22,28 @@ export default function ContactPage() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    toast({
-      title: "Message Sent!",
-      description: "We'll get back to you within 24 hours.",
-    });
+
+    const form = e.currentTarget;
+    const fd = new FormData(form);
+    const payload = Object.fromEntries(fd.entries());
+
+    const result = await submitToSheets('contact', payload);
+
+    if (result.success) {
+      toast({
+        title: 'Message Sent!',
+        description: "We'll get back to you within 24 hours.",
+      });
+      form.reset();
+    } else {
+      toast({
+        title: 'Submission Failed',
+        description: result.message || 'Please try again later.',
+        variant: 'destructive',
+      });
+    }
+
     setIsLoading(false);
-    (e.target as HTMLFormElement).reset();
   };
 
   return (

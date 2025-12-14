@@ -9,6 +9,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { useState } from 'react';
 import { useToast } from '@/hooks/use-toast';
 import { Briefcase, CheckCircle, Upload } from 'lucide-react';
+import { submitToSheets } from '@/lib/forms';
 
 const benefits = [
   'Competitive salary packages',
@@ -104,35 +105,60 @@ export default function CareersPage() {
       return;
     }
     setIsSubmitting(true);
-    
-    // Simulate form submission
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    
-    toast({
-      title: 'Application Submitted!',
-      description: 'Thank you for your interest. We will review your application and get back to you soon.',
-    });
-    
+
+    const payload = {
+      name: formData.name,
+      email: formData.email,
+      address: formData.address,
+      city: formData.city,
+      state: formData.state,
+      zipCode: formData.zipCode,
+      phone: formData.phone,
+      license: formData.license.join(', '),
+      isOver18: formData.isOver18,
+      hasDriverLicense: formData.hasDriverLicense,
+      ownsCar: formData.ownsCar,
+      preferredShifts: formData.preferredShifts.join(', '),
+      previousExperience: formData.previousExperience,
+      resumeName: formData.resume ? formData.resume.name : '',
+      howDidYouHear: formData.howDidYouHear,
+    };
+
+    const result = await submitToSheets('careers', payload);
+
+    if (result.success) {
+      toast({
+        title: 'Application Submitted!',
+        description: 'Thank you for your interest. We will review your application and get back to you soon.',
+      });
+      // Reset form
+      setFormData({
+        name: '',
+        email: '',
+        address: '',
+        city: '',
+        state: '',
+        zipCode: '',
+        phone: '',
+        license: [],
+        isOver18: '',
+        hasDriverLicense: '',
+        ownsCar: '',
+        preferredShifts: [],
+        previousExperience: '',
+        resume: null,
+        howDidYouHear: '',
+        consent: false,
+      });
+    } else {
+      toast({
+        title: 'Submission Failed',
+        description: result.message || 'Please try again later.',
+        variant: 'destructive',
+      });
+    }
+
     setIsSubmitting(false);
-    // Reset form
-    setFormData({
-      name: '',
-      email: '',
-      address: '',
-      city: '',
-      state: '',
-      zipCode: '',
-      phone: '',
-      license: [],
-      isOver18: '',
-      hasDriverLicense: '',
-      ownsCar: '',
-      preferredShifts: [],
-      previousExperience: '',
-      resume: null,
-      howDidYouHear: '',
-      consent: false,
-    });
   };
 
   return (

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, Phone, Mail, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -58,9 +58,6 @@ export function Header() {
               <span>hello@zenithallies.com</span>
             </a>
           </div>
-          <div className="flex items-center gap-4">
-            
-          </div>
         </div>
       </div>
 
@@ -68,7 +65,7 @@ export function Header() {
       <header
         className={cn(
           'sticky top-0 z-50 transition-all duration-500',
-          scrolled ? 'bg-background/70 backdrop-blur-lg shadow-soft py-2' : 'bg-background py-2'
+          scrolled ? 'bg-background/95 backdrop-blur-lg shadow-lg py-2' : 'bg-background py-2'
         )}
       >
         <div className="container mx-auto px-4">
@@ -142,59 +139,74 @@ export function Header() {
             </button>
           </div>
         </div>
-
-        {/* Mobile Menu */}
-        <div
-          className={cn(
-            'xl:hidden fixed inset-x-0 top-[72px] bottom-0 bg-background z-[60] transition-all duration-500',
-            isOpen ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-4 pointer-events-none'
-          )}
-        >
-          <nav className="container mx-auto px-4 py-8 flex flex-col gap-2 h-full overflow-auto">
-            {navLinks.map((link, index) => (
-              <Link
-                key={link.path}
-                to={link.path}
-                onClick={() => setIsOpen(false)}
-                className={cn(
-                  'px-4 py-3.5 rounded-xl text-base font-medium transition-all duration-300',
-                  location.pathname === link.path
-                    ? 'bg-primary/10 text-primary'
-                    : 'text-muted-foreground hover:text-foreground hover:bg-muted'
-                )}
-                style={{ transitionDelay: `${index * 50}ms` }}
-              >
-                {link.name}
-              </Link>
-            ))}
-            
-            <div className="mt-6 pt-6 border-t border-border">
-              <Button variant="default" className="w-full" size="lg" asChild>
-                <Link to="/contact" onClick={() => setIsOpen(false)}>
-                  Get Started
-                  <ChevronRight className="w-4 h-4 ml-1" />
-                </Link>
-              </Button>
-            </div>
-            
-            {/* Mobile Contact Info */}
-            <div className="mt-8 pt-6 border-t border-border space-y-4">
-              <a href="tel:240-278-1871" className="flex items-center gap-3 text-muted-foreground hover:text-primary transition-colors duration-300">
-                <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center">
-                  <Phone className="w-5 h-5 text-primary" />
-                </div>
-                <span>(240) 278-1871</span>
-              </a>
-              <a href="mailto:hello@zenithallies.com" className="flex items-center gap-3 text-muted-foreground hover:text-primary transition-colors duration-300">
-                <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center">
-                  <Mail className="w-5 h-5 text-primary" />
-                </div>
-                <span className="break-all">hello@zenithallies.com</span>
-              </a>
-            </div>
-          </nav>
-        </div>
       </header>
+
+      {/* Mobile Menu Overlay */}
+      {isOpen && (
+        <div 
+          className="xl:hidden fixed inset-0 bg-black/50 z-40 backdrop-blur-sm"
+          onClick={() => setIsOpen(false)}
+        />
+      )}
+
+      {/* Mobile Menu */}
+      <div
+        className={cn(
+          'xl:hidden fixed left-0 right-0 bg-background border-t border-border shadow-xl z-50 transition-all duration-300 ease-in-out',
+          isOpen ? 'max-h-[calc(100vh-7rem)] opacity-100 visible' : 'max-h-0 opacity-0 invisible'
+        )}
+        style={{ 
+          top: scrolled ? '3.5rem' : '7rem'
+        }}
+      >
+        <nav className="px-4 py-6 flex flex-col gap-2 overflow-y-auto" style={{ maxHeight: 'calc(100vh - 8rem)' }}>
+          {navLinks.map((link, index) => (
+            <Link
+              key={link.path}
+              to={link.path}
+              onClick={() => setIsOpen(false)}
+              className={cn(
+                'px-4 py-3.5 rounded-xl text-base font-medium transition-all duration-300',
+                location.pathname === link.path
+                  ? 'bg-primary/10 text-primary'
+                  : 'text-muted-foreground hover:text-foreground hover:bg-muted'
+              )}
+              style={{ 
+                transitionDelay: isOpen ? `${index * 30}ms` : '0ms',
+                opacity: isOpen ? 1 : 0,
+                transform: isOpen ? 'translateY(0)' : 'translateY(-10px)'
+              }}
+            >
+              {link.name}
+            </Link>
+          ))}
+          
+          <div className="mt-6 pt-6 border-t border-border">
+            <Button variant="default" className="w-full" size="lg" asChild>
+              <Link to="/contact" onClick={() => setIsOpen(false)}>
+                Get Started
+                <ChevronRight className="w-4 h-4 ml-1" />
+              </Link>
+            </Button>
+          </div>
+          
+          {/* Mobile Contact Info */}
+          <div className="mt-8 pt-6 border-t border-border space-y-4">
+            <a href="tel:240-278-1871" className="flex items-center gap-3 text-muted-foreground hover:text-primary transition-colors duration-300">
+              <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center">
+                <Phone className="w-5 h-5 text-primary" />
+              </div>
+              <span>(240) 278-1871</span>
+            </a>
+            <a href="mailto:hello@zenithallies.com" className="flex items-center gap-3 text-muted-foreground hover:text-primary transition-colors duration-300">
+              <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center">
+                <Mail className="w-5 h-5 text-primary" />
+              </div>
+              <span className="break-all">hello@zenithallies.com</span>
+            </a>
+          </div>
+        </nav>
+      </div>
     </>
   );
 }
