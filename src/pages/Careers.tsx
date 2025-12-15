@@ -94,26 +94,53 @@ export default function CareersPage() {
     }
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!formData.consent) {
-      toast({
-        title: 'Consent required',
-        description: 'Please accept the privacy consent to submit your application.',
-        variant: 'destructive',
-      });
-      return;
+// Add this helper function outside your component or inside it
+const convertFileToBase64 = (file: File): Promise<string> => {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result as string);
+    reader.onerror = (error) => reject(error);
+  });
+};
+
+const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+  if (!formData.consent) {
+    toast({
+      title: 'Consent required',
+      description: 'Please accept the privacy consent to submit your application.',
+      variant: 'destructive',
+    });
+    return;
+  }
+  // Require a resume file before submission
+  if (!formData.resume) {
+    toast({
+      title: 'Resume required',
+      description: 'Please attach a resume (.doc, .docx, or .pdf).',
+      variant: 'destructive',
+    });
+    return;
+  }
+
+  setIsSubmitting(true);
+
+  try {
+    let resumeBase64 = '';
+
+    if (formData.resume) {
+      resumeBase64 = await convertFileToBase64(formData.resume);
     }
-    setIsSubmitting(true);
 
     const payload = {
       name: formData.name,
       email: formData.email,
+      phone: formData.phone,
       address: formData.address,
       city: formData.city,
       state: formData.state,
       zipCode: formData.zipCode,
-      phone: formData.phone,
       license: formData.license.join(', '),
       isOver18: formData.isOver18,
       hasDriverLicense: formData.hasDriverLicense,
@@ -121,17 +148,20 @@ export default function CareersPage() {
       preferredShifts: formData.preferredShifts.join(', '),
       previousExperience: formData.previousExperience,
       resumeName: formData.resume ? formData.resume.name : '',
+      resumeMimeType: formData.resume ? formData.resume.type : '',
+      resumeData: resumeBase64,
       howDidYouHear: formData.howDidYouHear,
     };
 
-    const result = await submitToSheets('careers', payload);
+    console.log(payload)
+
+    const result = await submitToSheets('career', payload);
 
     if (result.success) {
       toast({
         title: 'Application Submitted!',
         description: 'Thank you for your interest. We will review your application and get back to you soon.',
       });
-      // Reset form
       setFormData({
         name: '',
         email: '',
@@ -157,9 +187,17 @@ export default function CareersPage() {
         variant: 'destructive',
       });
     }
+  } catch (error) {
+    console.error('Submission Error:', error);
+    toast({
+      title: 'Error',
+      description: 'Something went wrong preparing the file.',
+      variant: 'destructive',
+    });
+  }
 
-    setIsSubmitting(false);
-  };
+  setIsSubmitting(false);
+};
 
   return (
     <Layout>
