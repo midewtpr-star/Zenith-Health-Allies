@@ -30,6 +30,9 @@ export default function ContactPage() {
     const result = await submitToSheets('contact', payload);
 
     if (result.success) {
+
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({ event: "contact_form_success" });
       toast({
         title: 'Message Sent!',
         description: "We'll get back to you within 24 hours.",
@@ -45,14 +48,7 @@ export default function ContactPage() {
 
     setIsLoading(false);
   };
-if (response.ok) {
 
-  // Fire GTM event
-  window.dataLayer = window.dataLayer || [];
-  window.dataLayer.push({ event: "contact_form_success" });
-
-  toast.success("Message Sent! We'll get back to you within 24 hours.");
-}
   return (
     <Layout>
       {/* Contact Section */}
