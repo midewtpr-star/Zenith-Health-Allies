@@ -45,7 +45,14 @@ export default function ContactPage() {
 
     setIsLoading(false);
   };
+if (response.ok) {
 
+  // Fire GTM event
+  window.dataLayer = window.dataLayer || [];
+  window.dataLayer.push({ event: "contact_form_success" });
+
+  toast.success("Message Sent! We'll get back to you within 24 hours.");
+}
   return (
     <Layout>
       {/* Contact Section */}
